@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
+  navs: string[];
 
-  constructor() { }
+  constructor() { 
+    this.navs = [
+      'home', 'hot deals', 'categories', 'laptops', 'smartphones', 'cameras', 'accessories'
+    ];
+  }
 
   ngOnInit() {
   }

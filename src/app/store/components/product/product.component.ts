@@ -8,10 +8,16 @@ import { Product } from '../../../model/entities/product';
 })
 export class ProductComponent implements OnInit {
   @Input() product: Product;
+  actualPrice: number;
 
   constructor() { }
 
   ngOnInit() {
+    if(this.product.discount > 0){
+      this.actualPrice = this.product.price - (this.product.discount/100 * this.product.price);
+    }else{
+      this.actualPrice = this.product.price;
+    }
   }
 
 }

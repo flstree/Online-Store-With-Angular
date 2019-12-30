@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RepositoryService } from '../../../model/services/repository.service';
+import { CartService } from '../../../model/services/cart.service';
+import { Product } from '../../../model/entities/product';
 
 @Component({
   selector: 'app-header',
@@ -6,8 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  contact: Object = {};
+  categories: string[];
 
-  constructor() { }
+  constructor(private datasource: RepositoryService, private _cart: CartService) { 
+    this.contact = {
+      phone: "+021-95-51-84",
+      email: "email@email.com",
+      location: "1734 Stonecoal Road",
+    }
+
+    this.categories = this.datasource.getCategories();
+  }
 
   ngOnInit() {
   }
