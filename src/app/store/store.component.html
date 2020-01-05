@@ -138,7 +138,7 @@
             </div>
             <!-- /ASIDE -->
 
-            <app-products [products]="products" [pages]="pageNumbers" [selectedPage]="selectedPage" (changePage)="changePage($event)"></app-products>
+            <app-products [productsTotal]="totalProducts" [perPage]="productsPerPage" [products]="products" [pages]="pageCount" [selectedPage]="selectedPage" (changePage)="changePage($event)" (changePerPage)="changePageSize($event)"></app-products>
         </div>
         <!-- /row -->
     </div>

@@ -25,8 +25,8 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="./" class="logo">
-                            <img src="/assets/img/logo.png" alt="">
+                        <a href="./" class="logo mt-4">
+                            <h1 class="text-white">OStore</h1>
                         </a>
                     </div>
                 </div>
@@ -35,14 +35,14 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form>
+                        <!-- <form>
                             <select class="input-select">
                                 <option value="0">All Categories</option>
                                 <option value="{{i}}" *ngFor="let category of categories; let i;">{{category}}</option>
                             </select>
                             <input class="input" placeholder="Search here">
                             <button class="search-btn">Search</button>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
                 <!-- /SEARCH BAR -->
@@ -51,13 +51,13 @@
                 <div class="col-md-3 clearfix">
                     <div class="header-ctn">
                         <!-- Wishlist -->
-                        <div>
+                        <!-- <div>
                             <a href="#">
                                 <i class="fa fa-heart-o"></i>
                                 <span>Your Wishlist</span>
                                 <div class="qty">2</div>
                             </a>
-                        </div>
+                        </div> -->
                         <!-- /Wishlist -->
 
                         <!-- Cart -->
@@ -65,28 +65,28 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
-                                <div class="qty">1</div>
+                                <div class="qty">{{ cart.itemCount }}</div>
                             </a>
-                            <div class="cart-dropdown">
+                            <div class="cart-dropdown" *ngIf="cart.itemCount > 0">
                                 <div class="cart-list">
                                     <!-- NgFOr below -->
-                                    <div class="product-widget">
+                                    <div class="product-widget" *ngFor="let line of cart.lines">
                                         <div class="product-img">
-                                            <img src="/assets/img/product01.png" alt="">
+                                            <img src="{{line.product.image}}" alt="">
                                         </div>
                                         <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+                                            <h3 class="product-name"><a href="#">{{ line.product.name }}</a></h3>
+                                            <h4 class="product-price"><span class="qty">{{ line.quantity }}x</span>{{ line.price | currency: "USD":true:"1.2-2"}}</h4>
                                         </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                        <button class="delete" (click)="cart.remove(line.product.id)"><i class="fa fa-close"></i></button>
                                     </div>
                                 </div>
                                 <div class="cart-summary">
-                                    <small>1 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $2940.00</h5>
+                                    <small>{{ cart.itemCount }} Item(s) selected</small>
+                                    <h5>SUBTOTAL: {{ cart.cartPrice | currency: "USD":true:"1.2-2"}}</h5>
                                 </div>
                                 <div class="cart-btns">
-                                    <a href="#">View Cart</a>
+                                    <a routerLink="cart">View Cart</a>
                                     <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>

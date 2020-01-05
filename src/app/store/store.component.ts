@@ -13,8 +13,10 @@ export class StoreComponent implements OnInit {
   public products: Product[];
 
   /* Pagination */
-  public productsPerPage: number = 6;
+  public productsPerPage: number = 9;
   public selectedPage: number = 1;
+  public pageCount;
+  public totalProducts: number = 0;
 
   constructor(private repository: RepositoryService){
     this.renderProducts();
@@ -40,24 +42,31 @@ export class StoreComponent implements OnInit {
     }
 
     this.renderProducts();
+    this.changePage(1);
   }
 
   renderProducts(){
     let pageIndex = (this.selectedPage - 1) * this.productsPerPage;
+    let items;
 
     if(this.checkList.length < 1){
-      this.products = this.repository.getProducts().slice(pageIndex, pageIndex + this.productsPerPage);
+      items = this.repository.getProducts();
+      this.totalProducts = items.length;
+      this.pageCount =  Math.ceil(items.length / this.productsPerPage);
+      this.products = items.slice(pageIndex, pageIndex + this.productsPerPage);
       return;
     }
 
     this.checkList.forEach((cat, index)=>{
-      const items = this.repository.getProducts(cat);
+      items = this.repository.getProducts(cat);
+      this.totalProducts = items.length;
       if(index == 0){
         this.products = items;
       }else{
         this.products.push(...items);
       }
     });
+    this.pageCount =  Math.ceil(this.products.length / this.productsPerPage);
     this.products = this.products.slice(pageIndex, pageIndex + this.productsPerPage);
   }
 
@@ -69,11 +78,5 @@ export class StoreComponent implements OnInit {
   changePageSize(newSize?: number){
     this.productsPerPage = Number(newSize);
     this.changePage(1);
-  }
-
-  get pageNumbers(): number[] {
-    return Array(Math.ceil(this.repository
-      .getProducts().length / this.productsPerPage))
-      .fill(0).map((x, i) => i + 1);
   }
 }

@@ -1,0 +1,133 @@
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row" *ngIf="orderSent">
+            <div class="col-md-12 text-center">
+                <h2>Thanks!</h2>
+                <p>Thanks for placing your order.</p>
+                <p>We'll ship your goods as soon as possible.</p>
+                <button class="primary-btn" (click)="gotoStore()">Return to Store</button>
+            </div>
+        </div>
+        <!-- /row -->
+
+
+        <!-- row -->
+        <div class="row" *ngIf="!orderSent">
+
+            <div class="col-md-4" [formGroup]="orderData">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                    <div class="section-title">
+                        <h3 class="title">Billing address</h3>
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="first-name" placeholder="First Name" formControlName="firstname">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="last-name" placeholder="Last Name" formControlName="lastname">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="email" name="email" placeholder="Email" formControlName="email">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="address" placeholder="Address" formControlName="address">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="city" placeholder="City" formControlName="city">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="country" placeholder="Country" formControlName="country">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="zip-code" placeholder="ZIP Code" formControlName="zip">
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="tel" name="tel" placeholder="Telephone" formControlName="phone">
+                    </div>
+                </div>
+                <!-- /Billing Details -->
+
+                <!-- Order notes -->
+                <div class="order-notes">
+                    <textarea class="input" placeholder="Order Notes" formControlName="ordernote"></textarea>
+                </div>
+                <!-- /Order notes -->
+            </div>
+
+            <!-- Order Details -->
+            <div class="col-md-8 order-details">
+                <div class="section-title text-center">
+                    <h3 class="title">Your Order</h3>
+                </div>
+                <div class="order-summary">
+                    <div class="order-col">
+                        <div><strong>PRODUCT</strong></div>
+                        <div><strong>TOTAL</strong></div>
+                    </div>
+                    <div class="order-products">
+                        <div class="order-col" *ngFor="let line of _cart.lines">
+                            <div><input type="number" class="form-control-sm mr-5" [value]="line.quantity" style="width: 5em;" (change)="_cart.updateQuantity(line.product, $event.target.value)">x {{ line.product.name }}</div>
+                            <div>{{ line.price | currency: "USD":true:"2.2-2"}}</div>
+                        </div>
+                    </div>
+                    <div class="order-col">
+                        <div>Shipping</div>
+                        <div><strong>FREE</strong></div>
+                    </div>
+                    <div class="order-col">
+                        <div><strong>TOTAL</strong></div>
+                        <div><strong class="order-total">{{ _cart.cartPrice | currency: "USD":true:"2.2-2"}}</strong></div>
+                    </div>
+                </div>
+                <!-- <div class="payment-method">
+                    <div class="input-radio">
+                        <input type="radio" name="payment" id="payment-1">
+                        <label for="payment-1">
+              <span></span>
+              Direct Bank Transfer
+            </label>
+                        <div class="caption">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                    <div class="input-radio">
+                        <input type="radio" name="payment" id="payment-2">
+                        <label for="payment-2">
+              <span></span>
+              Cheque Payment
+            </label>
+                        <div class="caption">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                    <div class="input-radio">
+                        <input type="radio" name="payment" id="payment-3">
+                        <label for="payment-3">
+              <span></span>
+              Paypal System
+            </label>
+                        <div class="caption">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="input-checkbox">
+                    <input type="checkbox" id="terms" (change)="acceptTerms($event.target.checked)">
+                    <label for="terms">
+            <span></span>
+            I've read and accept the <a>terms & conditions</a>
+          </label>
+                </div>
+                <a class="primary-btn order-submit" (click)="submitOrder()">Place order</a>
+                <a class="primary-btn store-return" (click)="gotoStore()">Return to Store</a>
+            </div>
+            <!-- /Order Details -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

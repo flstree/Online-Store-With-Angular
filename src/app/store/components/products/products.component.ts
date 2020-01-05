@@ -8,17 +8,30 @@ import { Product } from '../../../model/entities/product';
 })
 export class ProductsComponent implements OnInit {
   @Input() products: Product[];
-  @Input() pages: number[];
+  @Input() pages;
   @Input() selectedPage: number;
+  @Input() perPage: number;
+  @Input() productsTotal: number;
+
   @Output() changePage = new EventEmitter;
+  @Output() changePerPage = new EventEmitter;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  getCurrentItemsNumber(){
+    const itemNums = this.selectedPage * this.perPage;
+    return (itemNums > this.productsTotal) ? this.productsTotal : itemNums;
+  }
+
   emitChangePage(page){
     this.changePage.emit(page);
+  }
+
+  emitChangePerPage(perPage){
+    this.changePerPage.emit(perPage);
   }
 
 }

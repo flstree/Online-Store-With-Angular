@@ -9,7 +9,35 @@ import { NewsletterComponent } from './shared/components/newsletter/newsletter.c
 import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
+import { RouterModule, Routes } from '@angular/router';
+import { StoreComponent } from './store/store.component';
+import { CartDetailComponent } from './store/components/cart-detail/cart-detail.component';
+import { CheckoutComponent } from './store/components/checkout/checkout.component';
+import { StoreDetailComponent } from './store/components/store-detail/store-detail.component';
+import { StoreFirstGuard } from './guards/storeFirst.guard';
+import { ReactiveFormsModule } from '@angular/forms';
 
+const routes: Routes = [
+  {
+    path: "store", component: StoreComponent,
+    canActivate: [StoreFirstGuard]
+  },
+  {
+    path: "item/:id", component: StoreDetailComponent,
+    canActivate: [StoreFirstGuard]
+  },
+  {
+    path: "cart", component: CartDetailComponent,
+    canActivate: [StoreFirstGuard]
+  },
+  {
+    path: "checkout", component: CheckoutComponent,
+    canActivate: [StoreFirstGuard]
+  },
+  {
+    path: "**", redirectTo: "/store"
+  }
+];
 
 @NgModule({
   declarations: [
@@ -21,9 +49,9 @@ import { NavigationComponent } from './shared/components/navigation/navigation.c
     NavigationComponent
   ],
   imports: [
-    BrowserModule, StoreModule
+    BrowserModule, StoreModule, RouterModule.forRoot(routes), ReactiveFormsModule
   ],
-  providers: [],
+  providers: [StoreFirstGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,8 +8,14 @@ export class Product {
   discount?: number;
   state?: string;
   image?: string;
+  rating?: number;
 
   constructor(values: Object = {}){
     Object.assign(this, values);
+  }
+
+  getRating(){
+    if(this.rating == null || this.rating == undefined || this.rating == 0) return;
+    return Array(this.rating);
   }
 }

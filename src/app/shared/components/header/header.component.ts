@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RepositoryService } from '../../../model/services/repository.service';
 import { CartService } from '../../../model/services/cart.service';
-import { Product } from '../../../model/entities/product';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +11,7 @@ export class HeaderComponent implements OnInit {
   contact: Object = {};
   categories: string[];
 
-  constructor(private datasource: RepositoryService, private _cart: CartService) { 
+  constructor(private datasource: RepositoryService, public cart: CartService) { 
     this.contact = {
       phone: "+021-95-51-84",
       email: "email@email.com",

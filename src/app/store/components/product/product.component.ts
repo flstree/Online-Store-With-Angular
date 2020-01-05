@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../model/entities/product';
+import { CartService } from '../../../model/services/cart.service';
 
 @Component({
   selector: 'app-product',
@@ -10,7 +11,7 @@ export class ProductComponent implements OnInit {
   @Input() product: Product;
   actualPrice: number;
 
-  constructor() { }
+  constructor(private cart: CartService) { }
 
   ngOnInit() {
     if(this.product.discount > 0){
@@ -18,6 +19,14 @@ export class ProductComponent implements OnInit {
     }else{
       this.actualPrice = this.product.price;
     }
+  }
+
+  addProductToCart(product: Product){
+    this.cart.add(product);
+  }
+
+  gotoView(id: number){
+    
   }
 
 }
